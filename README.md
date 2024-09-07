@@ -4,7 +4,7 @@ Create react-app App
 configured Tailwind css
 
 #Features
--Login/SignUP
+-Login/SignUP - (UI done)
 -SignIn/SignUP
 -Browse(after Auth)
 -Header
@@ -17,4 +17,5 @@ configured Tailwind css
   -Netflix GPT
   -SearchBar
   -Movie Suggestions
+
 # Netflix-GPT
