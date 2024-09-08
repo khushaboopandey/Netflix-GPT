@@ -10,6 +10,7 @@ import {
 import { auth } from "../utils/firebase";
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
+import { USERAVTAR } from "../utils/constant";
 
 const Login = () => {
   const [isSignIn, setIsSignIn] = useState(true);
@@ -42,8 +43,7 @@ const Login = () => {
 
           updateProfile(user, {
             displayName: name.current.value,
-            photoURL:
-              "https://lh3.googleusercontent.com/ogw/AF2bZyh7wvuQ_GsOACGz-_uAtJigiy2PL7JPtwb1t_R9fkYiaA=s32-c-mo",
+            photoURL: USERAVTAR,
           })
             .then(() => {
               const { uid, email, displayName, photoURL } = auth.currentUser;

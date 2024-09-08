@@ -17,6 +17,7 @@ configured Tailwind css
 -UpdateProfile
 -bugfix
 -Fetch Movies data
+-unsubscribed to the onAuthStateChanged callback
 
 #Features
 -Login/SignUP - (UI done)
@@ -27,6 +28,7 @@ configured Tailwind css
 -Trailer in Background
 -Title & description
 -Movie Suggestions
+-Added Hardcoded value to constant file
 
 - MovieList
   -Netflix GPT
