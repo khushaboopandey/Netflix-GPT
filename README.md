@@ -11,6 +11,8 @@ configured Tailwind css
 -Firebase Setup
 -Deploy app to production
 -create signUpUser account
+-SignIn user Api
+-Redux Store with userSlice
 
 #Features
 -Login/SignUP - (UI done)

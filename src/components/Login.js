@@ -6,10 +6,12 @@ import {
   signInWithEmailAndPassword,
 } from "firebase/auth";
 import { auth } from "../utils/firebase";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [isSignIn, setIsSignIn] = useState(true);
   const [errorMsg, setErrorMsg] = useState(null);
+  const navigate = useNavigate();
 
   const email = useRef(null);
   const password = useRef(null);
@@ -37,6 +39,7 @@ const Login = () => {
         .then((userCredential) => {
           // Signed up
           const user = userCredential.user;
+          navigate("/browse");
           console.log("====================================");
           console.log(user);
           console.log("====================================");
@@ -45,6 +48,7 @@ const Login = () => {
           const errorCode = error.code;
           const errorMessage = error.message;
           setErrorMsg(errorCode + " - " + errorMessage);
+          navigate("/");
         });
     } else {
       // sigh in Logic
@@ -56,6 +60,7 @@ const Login = () => {
         .then((userCredential) => {
           // Signed in
           const user = userCredential.user;
+          navigate("/browse");
           console.log("====================================");
           console.log(user);
           console.log("====================================");
@@ -64,6 +69,7 @@ const Login = () => {
           const errorCode = error.code;
           const errorMessage = error.message;
           setErrorMsg(errorCode + " - " + errorMessage);
+          navigate("/");
         });
     }
   };
