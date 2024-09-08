@@ -8,14 +8,12 @@ import {
   signInWithEmailAndPassword,
 } from "firebase/auth";
 import { auth } from "../utils/firebase";
-import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
 
 const Login = () => {
   const [isSignIn, setIsSignIn] = useState(true);
   const [errorMsg, setErrorMsg] = useState(null);
-  const navigate = useNavigate();
   const dispatch = useDispatch((store) => store.user);
   const name = useRef(null);
   const email = useRef(null);
@@ -26,7 +24,6 @@ const Login = () => {
   };
 
   const handleButtonClick = () => {
-    // validate the form data
     const errorMsg = checkValidData(
       email.current.value,
       password.current.value
@@ -35,14 +32,12 @@ const Login = () => {
     if (errorMsg) return;
 
     if (!isSignIn) {
-      // sigh Up Logic
       createUserWithEmailAndPassword(
         auth,
         email.current.value,
         password.current.value
       )
         .then((userCredential) => {
-          // Signed up
           const user = userCredential.user;
 
           updateProfile(user, {
@@ -52,8 +47,6 @@ const Login = () => {
           })
             .then(() => {
               const { uid, email, displayName, photoURL } = auth.currentUser;
-
-              // Profile updated!
               dispatch(
                 addUser({
                   uid: uid,
@@ -62,91 +55,80 @@ const Login = () => {
                   photoURL: photoURL,
                 })
               );
-              navigate("/browse");
             })
             .catch((error) => {
               setErrorMsg(error);
             });
         })
         .catch((error) => {
-          const errorCode = error.code;
-          const errorMessage = error.message;
-          setErrorMsg(errorCode + " - " + errorMessage);
-          navigate("/");
+          setErrorMsg(`${error.code} - ${error.message}`);
         });
     } else {
-      // sigh in Logic
       signInWithEmailAndPassword(
         auth,
         email.current.value,
         password.current.value
       )
         .then((userCredential) => {
-          // Signed in
           const user = userCredential.user;
-          navigate("/browse");
         })
         .catch((error) => {
-          const errorCode = error.code;
-          const errorMessage = error.message;
-          setErrorMsg(errorCode + " - " + errorMessage);
-          navigate("/");
+          setErrorMsg(`${error.code} - ${error.message}`);
         });
     }
   };
 
   return (
-    <div>
+    <div className="relative min-h-screen flex flex-col items-center justify-center  ">
       <Header />
-      <div>
-        <img
-          className="absolute"
-          src="https://assets.nflxext.com/ffe/siteui/vlv3/04bef84d-51f6-401e-9b8e-4a521cbce3c5/null/IN-en-20240903-TRIFECTA-perspective_0d3aac9c-578f-4e3c-8aa8-bbf4a392269b_large.jpg"
-          alt="background img"
-        />
-      </div>
+      <img
+        className="absolute top-0 left-0 w-full h-full object-cover -z-10"
+        src="https://assets.nflxext.com/ffe/siteui/vlv3/04bef84d-51f6-401e-9b8e-4a521cbce3c5/null/IN-en-20240903-TRIFECTA-perspective_0d3aac9c-578f-4e3c-8aa8-bbf4a392269b_large.jpg"
+        alt="background img"
+      />
       <form
-        className="w-3/12 absolute p-12 bg-black my-36 mx-auto right-0 left-0 text-white rounded-lg bg-opacity-75"
+        className="w-11/12 sm:w-8/12 md:w-6/12 lg:w-4/12 xl:w-3/12 p-10 bg-black bg-opacity-75 rounded-lg"
         onSubmit={(e) => e.preventDefault()}
       >
-        <h1 className="font-bold text-3xl py-4 ">
-          {isSignIn ? "Sign In " : "Sign Up"}
+        <h1 className="font-bold text-3xl py-4 text-white">
+          {isSignIn ? "Sign In" : "Sign Up"}
         </h1>
         {!isSignIn && (
           <input
             type="text"
             ref={name}
             placeholder="Full Name"
-            className="p-3 my-4 w-full bg-gray-700"
+            className="p-3 my-4 w-full bg-gray-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-red-600 transition"
           />
         )}
         <input
           ref={email}
           type="text"
           placeholder="Email Address"
-          className="p-3 my-4 w-full bg-gray-700"
+          className="p-3 my-4 w-full bg-gray-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-red-600 transition"
         />
-
         <input
           type="password"
           ref={password}
-          placeholder="password"
-          className="p-3 my-4 w-full  bg-gray-700"
+          placeholder="Password"
+          className="p-3 my-4 w-full bg-gray-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-red-600 transition"
         />
         {errorMsg && (
-          <p className="text-red-500 font-bold text-sm py-2 ">{errorMsg}</p>
+          <p className="text-red-500 font-bold text-sm py-2">{errorMsg}</p>
         )}
-
         <button
-          className="p-4 my-6 bg-red-700 w-full rounded-lg"
+          className="p-4 my-6 w-full bg-red-600 hover:bg-red-700 text-white font-bold rounded-lg transition"
           onClick={handleButtonClick}
         >
-          {isSignIn ? "Sign In " : "Sign Up"}
+          {isSignIn ? "Sign In" : "Sign Up"}
         </button>
-        <p className="py-3 cursor-pointer" onClick={toggleSignInForm}>
+        <p
+          className="py-3 text-center cursor-pointer text-red-500"
+          onClick={toggleSignInForm}
+        >
           {isSignIn
-            ? "New to Netflix? Sign up now. "
-            : "Already registered? Sign Up now"}
+            ? "New to Netflix? Sign Up now."
+            : "Already have an account? Sign In"}
         </p>
       </form>
     </div>
