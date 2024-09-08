@@ -15,6 +15,7 @@ configured Tailwind css
 -Redux Store with userSlice
 -signOut
 -UpdateProfile
+-Fetch Movies data
 
 #Features
 -Login/SignUP - (UI done)

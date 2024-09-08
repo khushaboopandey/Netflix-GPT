@@ -7,9 +7,6 @@ import { useSelector } from "react-redux";
 const Header = () => {
   const navigate = useNavigate();
   const user = useSelector((store) => store.user);
-  console.log("====================================");
-  console.log(user);
-  console.log("====================================");
   const userSignOut = () => {
     signOut(auth)
       .then(() => {
@@ -21,9 +18,6 @@ const Header = () => {
         navigate("/error");
       });
   };
-  console.log("====================================");
-  console.log("yes", user);
-  console.log("====================================");
   return (
     <div className="absolute w-screen px-8 py-2 bg-gradient-to-b from-black z-10 flex justify-between">
       <img
