@@ -13,6 +13,8 @@ configured Tailwind css
 -create signUpUser account
 -SignIn user Api
 -Redux Store with userSlice
+-signOut
+-UpdateProfile
 
 #Features
 -Login/SignUP - (UI done)
