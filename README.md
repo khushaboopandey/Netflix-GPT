@@ -35,4 +35,8 @@ configured Tailwind css
   -SearchBar
   -Movie Suggestions
 
+-command for deployment
+-npm run build
+-firebase deploy
+
 # Netflix-GPT

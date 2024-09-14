@@ -79,7 +79,7 @@ const Login = () => {
   };
 
   return (
-    <div className="relative min-h-screen flex flex-col items-center justify-center  ">
+    <div className="relative min-h-screen flex flex-col items-center justify-center">
       <Header />
       <img
         className="absolute top-0 left-0 w-full h-full object-cover -z-10"
