@@ -7,10 +7,12 @@ import { onAuthStateChanged } from "firebase/auth";
 import { addUser, removeUser } from "../utils/userSlice";
 import { LOGO, USERAVTAR } from "../utils/constant";
 import { toggleGptSearchView } from "../utils/gptSlice";
+import { changeLanguage } from "../utils/configSlice";
 
 const Header = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const showGptSearch = useSelector((store) => store.gpt.showGptSearch);
 
   // Auth State Listener
   useEffect(() => {
@@ -45,16 +47,24 @@ const Header = () => {
   };
 
   const toggleSearch = () => {
-    dispatch(toggleGptSearchView());  // This should trigger the state change.
-    console.log("Toggled GPT Search");
+    dispatch(toggleGptSearchView());
   };
+  const handleLanguageChange = (e) => {
+    dispatch(changeLanguage(e.target.value))
+  }
+
   return (
     <header className="fixed top-0 w-full px-6 py-4 bg-gradient-to-b from-black z-20 flex justify-between items-center">
       <img className="w-32 md:w-40 lg:w-48" src={LOGO} alt="Netflix Logo" />
       {user && (
         <div className="flex items-center space-x-4">
+          {showGptSearch && <select className="p-2 bg-gray-900 text-white rounded" onChange={handleLanguageChange}>
+            <option value="en">English</option>
+            <option value="hindi">Hindi</option>
+            <option value="spanish">Spanish</option>
+          </select>}
           <button className="py-2 px-4 mx-2 bg-purple-800 text-white rounded" onClick={toggleSearch} >
-            GPT Search
+            {showGptSearch ? "Home" : "GPT Search"}
           </button>
           <img
             className="w-10 h-8 md:w-12 md:h-12 rounded-md"
