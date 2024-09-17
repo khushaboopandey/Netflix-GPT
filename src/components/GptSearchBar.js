@@ -11,8 +11,8 @@ const GptSearchBar = () => {
     const HandleGptSearchClick = async () => {
         console.log(searchText.current.value);
         const gptQuery = "Act as a movie recommendation and suggest some movies for the query" + searchText.current.value + ". only give me name of 5 movies, comma seperated like the example given ahead. Example Result: Gadar, Sholey, Don, GolMal, Koi mil gaya";
-        //  make api call to get movie result
 
+        //  make api call to get movie result
         const getGptResult = await openAi.chat.completions.create({
             messages: [{ role: 'user', content: gptQuery }],
             model: 'gpt-3.5-turbo',
