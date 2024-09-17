@@ -6,10 +6,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { onAuthStateChanged } from "firebase/auth";
 import { addUser, removeUser } from "../utils/userSlice";
 import { LOGO, USERAVTAR } from "../utils/constant";
+import { toggleGptSearchView } from "../utils/gptSlice";
 
 const Header = () => {
   const dispatch = useDispatch();
-
   const navigate = useNavigate();
 
   // Auth State Listener
@@ -38,19 +38,26 @@ const Header = () => {
   const user = useSelector((store) => store.user);
   const userSignOut = () => {
     signOut(auth)
-      .then(() => {})
+      .then(() => { })
       .catch((error) => {
         navigate("/error");
       });
   };
 
+  const toggleSearch = () => {
+    dispatch(toggleGptSearchView());  // This should trigger the state change.
+    console.log("Toggled GPT Search");
+  };
   return (
     <header className="fixed top-0 w-full px-6 py-4 bg-gradient-to-b from-black z-20 flex justify-between items-center">
       <img className="w-32 md:w-40 lg:w-48" src={LOGO} alt="Netflix Logo" />
       {user && (
         <div className="flex items-center space-x-4">
+          <button className="py-2 px-4 mx-2 bg-purple-800 text-white rounded" onClick={toggleSearch} >
+            GPT Search
+          </button>
           <img
-            className="w-10 h-10 md:w-12 md:h-12 rounded-md"
+            className="w-10 h-8 md:w-12 md:h-12 rounded-md"
             src={USERAVTAR}
             alt="User Avatar"
           />
