@@ -21,5 +21,5 @@ export const Browse = () => {
       {showGptSearch ? <GPTSearch /> : <> <MainContainer />
         <SecondryContainer /></>}
     </div>
-  );
+  )
 };
